@@ -13,7 +13,7 @@ const { log, logSolution } = LOGUTIL;
 const YEAR = {year};
 const DAY = {day};
 const DEBUG = true;
-const useFullInput: boolean = true
+const useFullInput: boolean = true;
 LOGUTIL.setDebug(DEBUG);
 
 type TestCase = {
@@ -22,24 +22,24 @@ type TestCase = {
 }
 
 const test1: TestCase = {
-    input: 
+    input:
 `INPUT_HERE`,
-    expected: 'OUTPUT_HERE'
-}
+    expected: 'OUTPUT_HERE',
+};
 
 const test2: TestCase = {
     input: test1.input,
-    expected: 'OUTPUT_HERE'
-}
+    expected: 'OUTPUT_HERE',
+};
 
 // problem url  : {problem_url}
 
 function year{year}Day{day}Part1(input: string): string|number {
-    return "Not implemented";
+    return 'Not implemented';
 }
 
 function year{year}Day{day}Part2(input: string): string|number {
-    return "Not implemented";
+    return 'Not implemented';
 }
 
 async function run() {
@@ -58,7 +58,7 @@ async function run() {
     part2tests.forEach((testCase: TestCase) => {
         test.logTestResult(testCase, String(year{year}Day{day}Part2(testCase.input)));
     });
-    
+
     test.endTests();
 
     // Get input and run program while measuring performance
@@ -69,13 +69,13 @@ async function run() {
         const part1Solution = String(await year{year}Day{day}Part1(input));
         const part1After = performance.now();
 
-        const part2Before = performance.now()
+        const part2Before = performance.now();
         const part2Solution = String(await year{year}Day{day}Part2(input));
         const part2After = performance.now();
-        
+
         logSolution(part1Solution, part2Solution);
 
-        log(chalk.gray("--- Performance ---"));
+        log(chalk.gray('--- Performance ---'));
         log(chalk.gray(`Part 1: ${util.msToString(part1After - part1Before)}`));
         log(chalk.gray(`Part 2: ${util.msToString(part2After - part2Before)}`));
         log();
