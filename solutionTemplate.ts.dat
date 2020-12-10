@@ -34,11 +34,11 @@ const test2: TestCase = {
 
 // problem url  : {problem_url}
 
-function year{year}Day{day}Part1(input: string): string|number {
+function year{year}Day{day}Part1(input: string): string {
     return 'Not implemented';
 }
 
-function year{year}Day{day}Part2(input: string): string|number {
+function year{year}Day{day}Part2(input: string): string {
     return 'Not implemented';
 }
 
