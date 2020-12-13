@@ -33,7 +33,7 @@ F11`,
 
 const test2: TestCase = {
     input: test1.input,
-    expected: 'OUTPUT_HERE',
+    expected: '286',
 };
 
 // problem url  : https://adventofcode.com/2020/day/12
@@ -70,7 +70,7 @@ function move(
 function year2020Day12Part1(input: string): string {
     return input
         .split('\n')
-        .map((row: string): { cmd: string, distance: number } => (
+        .map((row): { cmd: string, distance: number } => (
             { cmd: row[0], distance: +row.substring(1, row.length) }
         ))
         .reduce((pv, cv) => move(pv, cv), { facing: 'E', coords: [0, 0] })
@@ -79,8 +79,62 @@ function year2020Day12Part1(input: string): string {
         .toString();
 }
 
+function movePart2(
+    ship: number[],
+    waypoint: number[],
+    instruction: { cmd: string, distance: number },
+): { ship: number[], waypoint: number[] } {
+    const NESW: string = 'NESW';
+    const { cmd, distance } = instruction;
+    let newShip = ship;
+    let newWaypoint = waypoint;
+
+    const moves: any = {
+        E: [1, 0],
+        W: [-1, 0],
+        N: [0, 1],
+        S: [0, -1],
+    };
+
+    if (NESW.includes(cmd)) {
+        newWaypoint = waypoint.map((c, i) => c + (moves[cmd][i] * distance)); // ?
+    }
+
+    switch (cmd) {
+    case 'F': {
+        newShip = [
+            ship[0] + (distance * waypoint[0]),
+            ship[1] + (distance * waypoint[1]),
+        ];
+        break;
+    }
+    case 'R': {
+        newWaypoint = new Array(distance / 90).fill(0).reduce((pv) => ([pv[1], -pv[0]]), waypoint);
+        break;
+    }
+    case 'L': {
+        newWaypoint = new Array(distance / 90).fill(0).reduce((pv) => ([-pv[1], pv[0]]), waypoint);
+        break;
+    }
+    default: { break; }
+    }
+
+    return { ship: newShip, waypoint: newWaypoint };
+}
+
 function year2020Day12Part2(input: string): string {
-    return 'Not implemented';
+    const waypoint = [10, 1];
+    const ship = [0, 0];
+
+    return input
+        .split('\n')
+        .map((row): { cmd: string, distance: number } => (
+            { cmd: row[0], distance: +row.substring(1, row.length) }
+        ))
+        .reduce((pv, cv) => (movePart2(pv.ship, pv.waypoint, cv)), { ship, waypoint })
+        .ship
+        .reduce((pv, cv) => Math.abs(pv) + Math.abs(cv))
+        .toString();
 }
 
 async function run() {
@@ -95,7 +149,7 @@ async function run() {
         test.logTestResult(testCase, String(year2020Day12Part1(testCase.input)));
     });
 
-    test.beginSection(false);
+    test.beginSection();
     part2tests.forEach((testCase: TestCase) => {
         test.logTestResult(testCase, String(year2020Day12Part2(testCase.input)));
     });
