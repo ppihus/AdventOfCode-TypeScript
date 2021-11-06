@@ -40,7 +40,7 @@ suck             : Suck in problem data from adventofcode.com.
                    absolute path. Defaults to {app_root}/years.
 --template       : Specify path to solution seed template. Template file
                    name must end in in the format ".xx.dat", where xx can
-                   be any extension. All solution files generated will 
+                   be any extension. All solution files generated will
                    have an extension of ".xx". Must supply full, absolute
                    path. Defaults to {app_root}/solutionTemplate.ts.dat.
 --compare-with   : Optional template to compare with to make template
@@ -141,7 +141,7 @@ function getSolutionPath(day: number, year: number) {
 
 let template: string | undefined;
 async function getTemplate() {
-	if (template == undefined) {
+	if (template === undefined) {
 		template = await fs.readFile(settings.templatePath, "utf-8");
 	}
 	return template;
@@ -149,7 +149,7 @@ async function getTemplate() {
 
 let compareTemplate: string | undefined;
 async function getCompareTemplate() {
-	if (compareTemplate == undefined) {
+	if (compareTemplate === undefined) {
 		if (settings.compareWithPath && existsSync(settings.compareWithPath)) {
 			compareTemplate = await fs.readFile(settings.compareWithPath, "utf-8");
 		} else {
@@ -222,7 +222,7 @@ function parseArgs() {
 	const origTemplatePath = templatePath;
 
 	const compareWithIndex = args.findIndex(a => a === "--compare-with");
-	let compareWithPath =
+	const compareWithPath =
 		compareWithIndex >= 0 ? args[compareWithIndex + 1] : path.join(getAppRoot(), "compareTemplate.dat");
 
 	const sessionToken = sessionTokenIndex >= 0 ? args[sessionTokenIndex + 1] : undefined;
