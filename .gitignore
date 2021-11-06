@@ -2,3 +2,5 @@
 .scratch
 ./test.ts
 node_modules/
+
+years/**/data.txt
