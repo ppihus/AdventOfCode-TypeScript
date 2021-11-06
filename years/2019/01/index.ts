@@ -30,16 +30,16 @@ const test1: TestCase = {
     expected: '34241',
 };
 
-const test2_1: TestCase = {
+const TEST_2_1: TestCase = {
     input: `14`,
     expected: '2',
 };
-const test2_2: TestCase = {
+const TEST_2_2: TestCase = {
     input: `1969`,
     expected: '966',
 };
 
-const test2_3: TestCase = {
+const TEST_2_3: TestCase = {
     input:  `100756`,
     expected: '50346',
 };
@@ -47,7 +47,7 @@ const test2_3: TestCase = {
 // problem url  : https://adventofcode.com/2019/day/1
 
 function year2019Day1Part1(input: string): string {
-    let fuel: number = input
+    const fuel: number = input
         .split('\n')
         .map((line: string): number => +line)
         .reduce((pv, cv) => pv + Math.floor(cv/3)-2,0);
@@ -55,7 +55,7 @@ function year2019Day1Part1(input: string): string {
 }
 
 function calculateFuelRecursive(mass: number): number {
-    let fuel = Math.floor(mass/3)-2
+    const fuel = Math.floor(mass/3)-2
     if (fuel > 0) {
         return fuel + calculateFuelRecursive(fuel)
     } else {
@@ -64,7 +64,7 @@ function calculateFuelRecursive(mass: number): number {
 }
 
 function year2019Day1Part2(input: string): string {
-    let totalFuel = input
+    const totalFuel = input
         .split('\n')
         .map((line: string): number => +line)
         .reduce((pv, cv) => pv + calculateFuelRecursive(cv), 0);
@@ -75,9 +75,9 @@ function year2019Day1Part2(input: string): string {
 async function run() {
     const part1tests: TestCase[] = [test1];
     const part2tests: TestCase[] = [
-        test2_1,
-        test2_2,
-        test2_3
+        TEST_2_1,
+        TEST_2_2,
+        TEST_2_3
     ];
 
     // Run tests
