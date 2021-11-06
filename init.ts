@@ -81,7 +81,7 @@ async function getNewSessionToken() {
 	await page.goto("https://adventofcode.com/auth/github");
 	await page.waitForNavigation({ url: /^https:\/\/adventofcode\.com\/$/, timeout: 0 });
 	const cookies = await context.cookies();
-	const sessionCookie = cookies.find(c => c.name === "session" && c.domain.includes("adventofcode.com"));
+	const sessionCookie = cookies.find(c => c.name === "session" && c.domain === ".adventofcode.com")
 	if (!sessionCookie) {
 		throw new Error("Could not acquire session cookie.");
 	}
