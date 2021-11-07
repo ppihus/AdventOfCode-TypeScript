@@ -21,21 +21,52 @@ type TestCase = {
     expected: string
 }
 
-const test1: TestCase = {
-    input:
-`INPUT_HERE`,
-    expected: 'OUTPUT_HERE',
+const TEST_1_1: TestCase = {
+    input: `1,9,10,3,2,3,11,0,99,30,40,50`,
+    expected: '3500,9,10,70,2,3,11,0,99,30,40,50'
+};
+const TEST_1_2: TestCase = {
+    input: `1,0,0,0,99`,
+    expected: '2,0,0,0,99',
+};
+const TEST_1_3: TestCase = {
+    input: `2,3,0,3,99`,
+    expected: '2,3,0,6,99',
+};
+const TEST_1_4: TestCase = {
+    input: `2,4,4,5,99,0`,
+    expected: '2,4,4,5,99,9801',
+};
+const TEST_1_5: TestCase = {
+    input: `1,1,1,4,99,5,6,0,99`,
+    expected: '30,1,1,4,2,5,6,0,99',
 };
 
 const test2: TestCase = {
-    input: test1.input,
+    input: ``,
     expected: 'OUTPUT_HERE',
 };
 
 // problem url  : https://adventofcode.com/2019/day/2
 
-function year2019Day2Part1(input: string): string {
-    return 'Not implemented';
+function year2019Day2Part1(input: string): number[] {
+    const opcode: number[] = input
+        .split(',')
+        .map((line: string): number => +line)
+
+    for ( let i = 0; i < opcode.length; i += 4 ) {
+        const v = opcode[i];
+        if (v === 99) { return opcode }
+
+        const targetPos = opcode[i+3]
+        const elem1 = opcode[opcode[i+1]]
+        const elem2 = opcode[opcode[i+2]]
+
+        if (v === 1) { opcode[targetPos] = elem1 + elem2 }
+        if (v === 2) { opcode[targetPos] = elem1 * elem2 }
+    }
+
+    return opcode;
 }
 
 function year2019Day2Part2(input: string): string {
@@ -43,7 +74,13 @@ function year2019Day2Part2(input: string): string {
 }
 
 async function run() {
-    const part1tests: TestCase[] = [test1];
+    const part1tests: TestCase[] = [
+        TEST_1_1,
+        TEST_1_2,
+        TEST_1_3,
+        TEST_1_4,
+        TEST_1_5,
+    ];
     const part2tests: TestCase[] = [test2];
 
     // Run tests
@@ -55,9 +92,9 @@ async function run() {
     });
 
     test.beginSection();
-    part2tests.forEach((testCase: TestCase) => {
-        test.logTestResult(testCase, String(year2019Day2Part2(testCase.input)));
-    });
+    // part2tests.forEach((testCase: TestCase) => {
+    //     test.logTestResult(testCase, String(year2019Day2Part2(testCase.input)));
+    // });
 
     test.endTests();
 
