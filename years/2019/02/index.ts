@@ -58,12 +58,12 @@ function year2019Day2Part1(input: string): number[] {
         const v = memory[i];
         if (v === 99) { return memory }
 
-        const targetPos = memory[i+3]
+        const targetAddress = memory[i+3]
         const elem1 = memory[memory[i+1]]
         const elem2 = memory[memory[i+2]]
 
-        if (v === 1) { memory[targetPos] = elem1 + elem2 }
-        if (v === 2) { memory[targetPos] = elem1 * elem2 }
+        if (v === 1) { memory[targetAddress] = elem1 + elem2 }
+        if (v === 2) { memory[targetAddress] = elem1 * elem2 }
     }
 
     return memory;
