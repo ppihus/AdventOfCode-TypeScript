@@ -54,13 +54,13 @@ function year2019Day2Part1(input: string): number[] {
         .split(',')
         .map((line: string): number => +line)
 
-    for ( let i = 0; i < memory.length; i += 4 ) {
-        const v = memory[i];
+    for ( let pointer = 0; pointer < memory.length; pointer += 4 ) {
+        const v = memory[pointer];
         if (v === 99) { return memory }
 
-        const targetAddress = memory[i+3]
-        const parameter1 = memory[memory[i+1]]
-        const parameter2 = memory[memory[i+2]]
+        const targetAddress = memory[pointer+3]
+        const parameter1 = memory[memory[pointer+1]]
+        const parameter2 = memory[memory[pointer+2]]
 
         if (v === 1) { memory[targetAddress] = parameter1 + parameter2 }
         if (v === 2) { memory[targetAddress] = parameter1 * parameter2 }
