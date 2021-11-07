@@ -50,23 +50,23 @@ const test2: TestCase = {
 // problem url  : https://adventofcode.com/2019/day/2
 
 function year2019Day2Part1(input: string): number[] {
-    const opcode: number[] = input
+    const memory: number[] = input
         .split(',')
         .map((line: string): number => +line)
 
-    for ( let i = 0; i < opcode.length; i += 4 ) {
-        const v = opcode[i];
-        if (v === 99) { return opcode }
+    for ( let i = 0; i < memory.length; i += 4 ) {
+        const v = memory[i];
+        if (v === 99) { return memory }
 
-        const targetPos = opcode[i+3]
-        const elem1 = opcode[opcode[i+1]]
-        const elem2 = opcode[opcode[i+2]]
+        const targetPos = memory[i+3]
+        const elem1 = memory[memory[i+1]]
+        const elem2 = memory[memory[i+2]]
 
-        if (v === 1) { opcode[targetPos] = elem1 + elem2 }
-        if (v === 2) { opcode[targetPos] = elem1 * elem2 }
+        if (v === 1) { memory[targetPos] = elem1 + elem2 }
+        if (v === 2) { memory[targetPos] = elem1 * elem2 }
     }
 
-    return opcode;
+    return memory;
 }
 
 function year2019Day2Part2(input: string): string {
