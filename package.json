@@ -29,7 +29,7 @@
 		"js-combinatorics": "^1.5.4",
 		"lodash": "^4.17.20",
 		"mkdirp": "^1.0.4",
-		"node-fetch": "^2",
+		"node-fetch": "^3",
 		"node-localstorage": "^2.2.1",
 		"playwright-chromium": "^1.8",
 		"ts-node": "^10.4.0"
