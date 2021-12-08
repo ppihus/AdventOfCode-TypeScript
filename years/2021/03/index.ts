@@ -1,10 +1,12 @@
-/* eslint-disable no-console */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
+/* tslint:disable no-console */
+/* tslint:disable import/no-unresolved */
+/* tslint:disable import/extensions */
+// tslint:disable: no-unused-vars
+// tslint:disable: no-unused-expression
+// tslint:disable: no-bitwise
+// tslint:disable: comment-format
 import chalk from 'chalk';
 import { performance } from 'perf_hooks';
-// eslint-disable-next-line no-unused-vars
-// tslint:disable: no-bitwise
 import _, { xor } from 'lodash';
 import * as util from '../../../util/util';
 import * as test from '../../../util/test';
@@ -14,7 +16,7 @@ const { log, logSolution } = LOGUTIL;
 const YEAR = 2021;
 const DAY = 3;
 const DEBUG = true;
-const useFullInput: boolean = false;
+const useFullInput: boolean = true;
 LOGUTIL.setDebug(DEBUG);
 
 type TestCase = {
@@ -62,6 +64,14 @@ function transpose(a: number[][]) {
   return a[0].map((_, c) => a.map(r => r[c]));
 }
 
+function addBitsToPosition(input: number, position: number): number {
+    return input = (input ^ (1<<position))
+}
+
+function getMostCommonBits(input: number[]): number {
+    return +input.sort()[Math.floor(input.length/2)]
+}
+
 function year2021Day3Part1(input: string): string {
     const diagnosticReport: number[][] = input.split('\n')
         .map((row: string): number[] => row
@@ -82,21 +92,40 @@ function year2021Day3Part1(input: string): string {
        }
     }
 
-
     return (gammaRateBin*epsilonRateBin).toString()
-
-}
-
-function addBitsToPosition(input: number, position: number): number {
-    return input = (input ^ (1<<position))
-}
-
-function getMostCommonBits(input: number[]): number {
-    return +input.sort()[Math.ceil(input.length/2)]
 }
 
 function year2021Day3Part2(input: string): string {
-    return ''
+    const diagnosticReport: number[][] = input.split('\n')
+    .map((row: string): number[] => row
+        .split('')
+        .map((line: string): number => +line)
+    );
+
+    let i: number = 0
+    let o2GeneratorRating: number[][] = diagnosticReport
+    while (o2GeneratorRating.length > 1) {
+        const mostCommonBit = getMostCommonBits(transpose(o2GeneratorRating)[i]) //?
+        const keep = []
+        for (const line of o2GeneratorRating) {
+            if (line[i] === mostCommonBit) { keep.push(line) }
+        }
+        o2GeneratorRating = keep
+        i++
+    }
+
+    i = 0
+    let co2ScrubberRating: number[][] = diagnosticReport
+    while (co2ScrubberRating.length > 1) {
+        const mostCommonBit = getMostCommonBits(transpose(co2ScrubberRating)[i]) //?
+        const keep = []
+        for (const line of co2ScrubberRating) {
+            if (line[i] !== mostCommonBit) { keep.push(line) }
+        }
+        co2ScrubberRating = keep
+        i++
+    }
+    return (parseInt(o2GeneratorRating[0].join(""), 2) * parseInt(co2ScrubberRating[0].join(""), 2)).toString()
 }
 
 async function run() {
